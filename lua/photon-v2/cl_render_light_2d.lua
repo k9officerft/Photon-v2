@@ -91,7 +91,7 @@ local drawGlow 			= true
 local drawBloom 		= true
 local drawSubtractive 	= GetConVar( "ph2_enable_subtractive_sprites" )
 local drawAdditive 		= GetConVar("ph2_enable_additive_sprites")
-
+local drawOverexposure 		= GetConVar("ph2_enable_overexposure_sprites")
 
 
 function Photon2.RenderLight2D.DrawBloom()
@@ -119,6 +119,12 @@ local subtractiveGlowMid = glowSize * 0.5
 local subtractiveGlowOuter = glowSize * 2
 local glow1 = subtractiveGlowOuter * 2
 local glow2 = glowSize * 3
+
+local detailColShifted = Color(0,0,0)
+local lightLevel = 0
+local lightLevelLerped = 0
+
+local whiteAmount = 192
 
 function Photon2.RenderLight2D.Render()
 	local start = SysTime()
@@ -196,8 +202,14 @@ function Photon2.RenderLight2D.Render()
 				render.OverrideBlend( true, 1, 1, 2, 0, 0, 0 )
 					render.DrawQuadEasy( light.Position, light.Angles:Forward(), light.Width * 1, light.Height * 1, invertColor( light.SourceFillColor ), light.Angles[3] - 180 )
 				render.OverrideBlend( false, 0, 0, 0 )
-				
-				render.DrawQuadEasy( light.Position, light.Angles:Forward(), light.Width * 1, light.Height * 1, light.SourceDetailColor, light.Angles[3] - 180 )
+				if drawOverexposure:GetBool() then
+					lightLevel = math.Clamp(whiteAmount - (render.ComputeLighting(EyePos(), Vector(0,0,1)):Length() * whiteAmount), 0, whiteAmount)
+					lightLevelLerped = Lerp(FrameTime()*0.4, lightLevelLerped or lightLevel, lightLevel)
+					detailColShifted = Color(light.SourceDetailColor.r + (lightLevelLerped * light.Intensity), light.SourceDetailColor.g + (lightLevelLerped * light.Intensity), light.SourceDetailColor.b + (lightLevelLerped * light.Intensity))
+				else
+					detailColShifted = light.SourceDetailColor
+				end
+				render.DrawQuadEasy( light.Position, light.Angles:Forward(), light.Width * 1, light.Height * 1, detailColShifted, light.Angles[3] - 180 )
 				-- render.PopFilterMag()
 				-- render.PopFilterMin()
 			end

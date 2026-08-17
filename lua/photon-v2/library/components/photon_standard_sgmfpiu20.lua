@@ -72,14 +72,14 @@ COMPONENT.Templates = {
 			Model = "models/sentry/20fpiu_new.mdl",
 			States = {
 				["BRIGHT"] = {
-					DrawColor = PhotonColor( 255, 116, 0 ),
+					DrawColor = PhotonColor( 255, 64, 0 ),
 					BloomColor = PhotonColor( 512, 0, 0 ),
 					-- Material = "photon/common/blank",
 					DrawMaterial = "photon/common/glow",
 				},
 				["DIM"] = {
-					DrawColor = PhotonColor( 128, 160, 0 ),
-					BloomColor = PhotonColor( 96, 0, 0 )
+					DrawColor = PhotonColor( 128, 128, 0 ),
+					BloomColor = PhotonColor( 96, 0, 0 ),
 				}
 			}
 		},

@@ -482,6 +482,7 @@ function Photon2.UI.PopulateMenuBar()
 
 		renderOptionsMenu:AddCVar( "Enable Projected Textures in MP", "ph2_enable_projectedtextures_mp", "1", "0" )
 		renderOptionsMenu:AddCVar( "Enable Subtractive 2D Rendering", "ph2_enable_subtractive_sprites", "1", "0" )
+		renderOptionsMenu:AddCVar( "Enable Overexposure Simulation", "ph2_enable_overexposure_sprites", "1", "0" )
 		-- renderOptionsMenu:AddCVar( "Enable 2D Lighting", "ph2_draw_light2d", "1", "0" )		
 		renderOptionsMenu:AddSpacer()
 		renderOptionsMenu:AddOption( "Effects Options...", function()

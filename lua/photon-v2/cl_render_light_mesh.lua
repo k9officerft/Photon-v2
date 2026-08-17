@@ -55,11 +55,24 @@ end
 
 local glowTest = Material("photon/common/glow_test")
 
+local drawOverexposure 		= GetConVar("ph2_enable_overexposure_sprites")
+
 local light
+local detailColShifted = Color(0,0,0)
+local lightLevel = 0
+local lightLevelLerped = 0
+
+local whiteAmount = 128
+
 function Photon2.RenderLightMesh.Render( depth, sky )
 	if ( depth or sky ) then return end
 	local start = SysTime()
 	local activeLights = this.Active
+
+	lightLevel = math.Clamp(whiteAmount - (render.ComputeLighting(EyePos(), Vector(0,0,1)):Length() * whiteAmount), 0, whiteAmount)
+	lightLevelLerped = Lerp(FrameTime()*0.4, lightLevelLerped or lightLevel, lightLevel)
+	--LocalPlayer():ChatPrint(tostring(lightLevelLerped))
+
 	for i=1, #activeLights do
 		light = activeLights[i]
 		if ( not light or ( light.Intensity <= 0 ) or ( not light.EnableDraw ) or ( light.UIMode ) ) then continue end
@@ -70,7 +83,13 @@ function Photon2.RenderLightMesh.Render( depth, sky )
 		-- render.SetMaterial( glowTest --[[@as IMaterial]] )
 		render.SetMaterial( light.DrawMaterial --[[@as IMaterial]] )
 		-- light.DrawMaterial--[[@as IMaterial]]:SetVector( "$color", Vector( 0, 0, 1 ) )
-		light.DrawMaterial--[[@as IMaterial]]:SetVector( "$color", light.DrawColor:GetVector() )
+		if drawOverexposure:GetBool() then
+			detailColShifted = Color(light.DrawColor.r + (lightLevelLerped * light.Intensity), light.DrawColor.g + (lightLevelLerped * light.Intensity), light.DrawColor.b + (lightLevelLerped * light.Intensity)):ToVector()
+		else	
+			detailColShifted = light.DrawColor:GetVector()
+		end
+
+		light.DrawMaterial--[[@as IMaterial]]:SetVector( "$color", detailColShifted )
 		
 		-- light.DrawMaterial--[[@as IMaterial]]:SetFloat( "$alpha", 0 )
 		if ( light.ManipulateAlpha ) then
@@ -85,7 +104,7 @@ function Photon2.RenderLightMesh.Render( depth, sky )
 					{
 						{
 							type = MATERIAL_LIGHT_POINT,
-							color = light.DrawColor:GetVector()*light.Intensity,
+							color = detailColShifted*light.Intensity,
 							pos = light.Matrix:GetTranslation(),
 							quadraticFalloff = light.DLightFallOff or 0.06
 						}

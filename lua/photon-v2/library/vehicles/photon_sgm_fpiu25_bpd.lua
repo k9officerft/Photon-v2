@@ -8,7 +8,7 @@ VEHICLE.Category 	= "Photon 2"
 VEHICLE.Author		= "SGM"
 
 VEHICLE.BodyGroups = {
-	--["Bobblehead"] = 4,
+	["interceptorbadge"] = 1,
 }
 
 local livery = PhotonMaterial.New({
@@ -422,7 +422,7 @@ VEHICLE.Equipment = {
 					},
 
 					--rear
-					--left
+					--left pillar
 					{
 						Inherit = "@mpf4",
 						Name = "@mpf3",
@@ -438,6 +438,24 @@ VEHICLE.Equipment = {
 						BodyGroups = {
 							["mount"] = 1,
 						},
+						Segments = {
+							Traffic = {
+								Frames = {
+									[1] = "[A] 1"
+								},
+								Sequences = {
+									["ON"] = { 1 },
+								}
+							},
+							Reverse = {
+								Frames = {
+									[1] = "[W] 1"
+								},
+								Sequences = {
+									["ON"] = { 1 },
+								}
+							},
+						},
 						Inputs = {
 							["Emergency.Warning"] = {
 								["MODE1"] = {
@@ -450,6 +468,22 @@ VEHICLE.Equipment = {
 									Light = "TRI_FLASH_SOLO"
 								},
 							},
+							["Emergency.Directional"] = {
+								["LEFT"] = {
+									Traffic = "ON",
+								},
+								["RIGHT"] = {
+									Traffic = "ON",
+								},
+								["CENOUT"] = {
+									Traffic = "ON",
+								}
+							},
+							["Vehicle.Transmission"] = {
+								["REVERSE"] = {
+									Reverse = "ON",
+								}
+							}
 						},
 					},
 					{
@@ -497,7 +531,7 @@ VEHICLE.Equipment = {
 						},
 					},
 					
-					--right
+					--right pillar
 					{
 						Inherit = "@mpf3",
 						Component = "photon_sos_mpf3",
@@ -561,6 +595,158 @@ VEHICLE.Equipment = {
 							},
 						},
 					},
+					--spoiler left
+					{
+						Inherit = "@mpf4",
+						Component = "photon_sos_mpf4",
+						Position = Vector( -26.0, -109.0, 77.3 ),
+						Angles = Angle( 0, -107.5, 0 ),
+						Scale = 0.9,
+						Phase = 0,
+						States = {"R"},
+						BodyGroups = {
+							["mount"] = 0,
+						},
+						Inputs = {
+							["Emergency.Warning"] = {
+								["MODE1"] = {
+									Light = "ALTERNATE"
+								},
+								["MODE2"] = {
+									Light = "TRI_FLASH_SOLO"
+								},
+								["MODE3"] = {
+									Light = "TRI_FLASH_SOLO"
+								},
+							},
+						},
+					},
+					{
+						Inherit = "@mpf4",
+						Component = "photon_sos_mpf4",
+						Position = Vector( -20.5, -110.2, 77.3 ),
+						Angles = Angle( 0, -97.5, 0 ),
+						Scale = 0.9,
+						Phase = 0,
+						States = {"R"},
+						BodyGroups = {
+							["mount"] = 0,
+						},
+						Inputs = {
+							["Emergency.Warning"] = {
+								["MODE1"] = {
+									Light = "ALTERNATE"
+								},
+								["MODE2"] = {
+									Light = "TRI_FLASH_SOLO:90"
+								},
+								["MODE3"] = {
+									Light = "TRI_FLASH_SOLO:90"
+								},
+							},
+						},
+					},
+					{
+						Inherit = "@mpf4",
+						Component = "photon_sos_mpf4",
+						Position = Vector( -14.97, -110.99, 77.3 ),
+						Angles = Angle( 0, -97.5, 0 ),
+						Scale = 0.9,
+						Phase = 0,
+						States = {"R"},
+						BodyGroups = {
+							["mount"] = 0,
+						},
+						Inputs = {
+							["Emergency.Warning"] = {
+								["MODE1"] = {
+									Light = "ALTERNATE"
+								},
+								["MODE2"] = {
+									Light = "TRI_FLASH_SOLO"
+								},
+								["MODE3"] = {
+									Light = "TRI_FLASH_SOLO"
+								},
+							},
+						},
+					},
+					--spoiler right
+					{
+						Inherit = "@mpf4",
+						Component = "photon_sos_mpf4",
+						Position = Vector( 26.0, -109.0, 77.3 ),
+						Angles = Angle( 0, -72.5, 0 ),
+						Scale = 0.9,
+						Phase = 90,
+						States = {"B"},
+						BodyGroups = {
+							["mount"] = 0,
+						},
+						Inputs = {
+							["Emergency.Warning"] = {
+								["MODE1"] = {
+									Light = "ALTERNATE:90"
+								},
+								["MODE2"] = {
+									Light = "TRI_FLASH_SOLO"
+								},
+								["MODE3"] = {
+									Light = "TRI_FLASH_SOLO"
+								},
+							},
+						},
+					},
+					{
+						Inherit = "@mpf4",
+						Component = "photon_sos_mpf4",
+						Position = Vector( 20.5, -110.2, 77.3 ),
+						Angles = Angle( 0, -82.5, 0 ),
+						Scale = 0.9,
+						Phase = 90,
+						States = {"B"},
+						BodyGroups = {
+							["mount"] = 0,
+						},
+						Inputs = {
+							["Emergency.Warning"] = {
+								["MODE1"] = {
+									Light = "ALTERNATE:90"
+								},
+								["MODE2"] = {
+									Light = "TRI_FLASH_SOLO:90"
+								},
+								["MODE3"] = {
+									Light = "TRI_FLASH_SOLO:90"
+								},
+							},
+						},
+					},
+					{
+						Inherit = "@mpf4",
+						Component = "photon_sos_mpf4",
+						Position = Vector( 14.97, -110.99, 77.3 ),
+						Angles = Angle( 0, -82.5, 0 ),
+						Scale = 0.9,
+						Phase = 90,
+						States = {"B"},
+						BodyGroups = {
+							["mount"] = 0,
+						},
+						Inputs = {
+							["Emergency.Warning"] = {
+								["MODE1"] = {
+									Light = "ALTERNATE:90"
+								},
+								["MODE2"] = {
+									Light = "TRI_FLASH_SOLO"
+								},
+								["MODE3"] = {
+									Light = "TRI_FLASH_SOLO"
+								},
+							},
+						},
+					},
 				}
 			}
 		}
@@ -601,6 +787,24 @@ VEHICLE.Equipment = {
 						Position = Vector(0, 13.85, 35.4),
 						Angles = Angle(35, -90, 0),
 						Scale = 0.72,
+					},
+					{
+						Model = "models/sentry/props/soundofffascia_fpiu_l.mdl",
+						Position = Vector( -20.5, -110.2, 77.3 ),
+						Angles = Angle( 0, -97.5, 0 ),
+						Scale = 0.9,
+						BodyGroups = {
+							["mount"] = 2,
+						},
+					},
+					{
+						Model = "models/sentry/props/soundofffascia_fpiu_r.mdl",
+						Position = Vector( 20.5, -110.2, 77.3 ),
+						Angles = Angle( 0, -82.5, 0 ),
+						Scale = 0.9,
+						BodyGroups = {
+							["mount"] = 2,
+						},
 					},
 				},
 			}
@@ -701,7 +905,7 @@ VEHICLE.Equipment = {
 						Angles = Angle( -12, -90, 0 ),
 						Scale = 1.0,
 						SubMaterials = {
-							[1] = "sentry/bpd/plate",
+							[1] = "sentry/bpd/plate_1804",
 						},
 					},
 				}

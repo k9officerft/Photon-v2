@@ -20,6 +20,7 @@ CreateClientConVar( "ph2_hud_color_accent_alt", "255,255,255,96", true, false, "
 CreateClientConVar( "ph2_enable_projectedtextures_mp", "0", true, true, "If projected texture lights should be rendered in multiplayer. Disabling will increase performance." )
 CreateClientConVar( "ph2_enable_subtractive_sprites", "1", true, false, "If subtractive sprite effects should be enabled (2D lighting)." )
 CreateClientConVar( "ph2_enable_additive_sprites", "1", true, false, "If additive sprite effects should be enabled (2D lighting)." )
+CreateClientConVar( "ph2_enable_overexposure_sprites", "1", true, false, "If overexposure sprite effects should be enabled (2D lighting)." )
 
 CreateClientConVar( "ph2_bloom_add_src_passes", "2", true, false, "Number of mesh source additive passes in bloom shader." )
 CreateClientConVar( "ph2_bloom_add_outer_passes", "2", true, false, "Number of outer glow additive passes in bloom shader." )
